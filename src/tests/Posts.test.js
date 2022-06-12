@@ -21,7 +21,6 @@ describe("Posts component", () => {
       render(<Posts />);
 
       const post = await screen.findByRole("heading", { name: "My post" });
-
       expect(post).toBeInTheDocument();
     });
   });
