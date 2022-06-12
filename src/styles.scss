@@ -1,0 +1,17 @@
+.main {
+    margin: 10px 20px 0 20px;
+}
+.form {
+    display: flex;
+     align-items: center;
+    &_formDisplayInput {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 10px;
+    }
+    &_button {
+        padding: 10px;
+    }
+}
+
