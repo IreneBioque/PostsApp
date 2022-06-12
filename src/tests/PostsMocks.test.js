@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { server } from "../mocks/server";
 import { createPost, getPosts } from "../mocks/handlers";
-import Posts from "../components/Posts";
+import Posts from "../components/PostsWithService";
 
 describe("Posts component", () => {
   describe("when user loads the component", () => {
