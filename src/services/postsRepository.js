@@ -1,18 +1,13 @@
+import axios from "axios";
+
 export function createPost(data) {
-  return fetch("https://jsonplaceholder.typicode.com/posts", {
-    method: "POST",
-    body: JSON.stringify(data),
-    headers: {
-      "Content-type": "application/json; charset=UTF-8",
-    },
-  }).then((response) => response.json());
+  return axios
+    .post("https://jsonplaceholder.typicode.com/posts", data)
+    .then((response) => response.data);
 }
 
 export function getAllPosts() {
-  return fetch("https://jsonplaceholder.typicode.com/posts", {
-    method: "GET",
-    headers: {
-      "Content-type": "application/json; charset=UTF-8",
-    },
-  }).then((response) => response.json());
+  return axios
+    .get("https://jsonplaceholder.typicode.com/posts")
+    .then((response) => response.data);
 }

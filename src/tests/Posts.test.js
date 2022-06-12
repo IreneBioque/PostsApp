@@ -1,26 +1,23 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import Posts from "../components/Posts";
+import axios from "axios";
+import Posts from "../components/PostsWithService";
 
-
+jest.mock("axios");
 describe("Posts component", () => {
-  beforeAll(() => jest.spyOn(window, "fetch"));
 
   describe("when user loads the component", () => {
     it("should list posts", async () => {
-      const posts = [
-        {
-          id: 1,
-          title: "My post",
-          body: "lorem ipsum",
-        },
-      ];
-
-      window.fetch.mockResolvedValueOnce({
-        ok: true,
-        json: async () => posts,
-      });
-
+      const posts = {
+        data: [
+          {
+            id: 1,
+            title: "My post",
+            body: "lorem ipsum",
+          },
+        ],
+      };
+      axios.get.mockResolvedValueOnce(posts);
       render(<Posts />);
 
       const post = await screen.findByRole("heading", { name: "My post" });
@@ -31,25 +28,15 @@ describe("Posts component", () => {
 
   describe("when user submits a new post", () => {
     it("should list new post", async () => {
-      window.fetch.mockResolvedValueOnce({
-        ok: true,
-        json: async () => [],
-      });
-
+      axios.get.mockResolvedValueOnce({ data: [] });
       render(<Posts />);
 
       const newPost = {
+        id: 2,
         title: "My new awesome post",
         content: "An interesting block of text",
       };
-      window.fetch.mockResolvedValueOnce({
-        ok: true,
-        json: async () => ({
-          ...newPost,
-          id: 2,
-        }),
-      });
-
+      axios.post.mockResolvedValueOnce({ data: newPost });
       const titleInput = screen.getByLabelText(/title/i);
       userEvent.type(titleInput, newPost.title);
 
